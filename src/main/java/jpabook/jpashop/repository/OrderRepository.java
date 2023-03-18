@@ -49,16 +49,13 @@ public class OrderRepository {
         return query.getResultList();
     }
 
-
-
-
-
-
-
-
-
-
-
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery( // ORDER를 가지고 오는 쿼리
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();  // 한번의 쿼리로 order, member, delivery를 모두 join하여 select절에 한번에 때려넣고 결과를 한번에 다 가져온다.
+    }
 
 
 }
